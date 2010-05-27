@@ -13,7 +13,7 @@ Die Ausführung kann aber erst später erfolgen.
 
 
 
-(Sender)<---**Bestät**---Empfänger
+(Sender)<---**Bestät**---Emänger
 (Sender)---**Auftrag**-->Empfänger
 
 c.  Transienter und antwortbasierter synchroner Nachrichtenaustausch - die Ausführung des 
