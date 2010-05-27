@@ -1,0 +1,86 @@
+sind selbst syncroniesiert, Es werden keine Semaphoren etc. benötigt.
+
+Happend Before- erlaubt Sychrosation mit logischen Uhren.
+
+Beispiele für Synchron, Persitente, Asyschron und Transiente Kommunikation
+
+
+
+a.  Transient und auslieferungsbasierter synchroner Nachrichtenaustausch – nur die Auslie-
+ferung des Auftrages wird an den entfernten Treiber bestätigt. Der Prozess braucht nicht 
+aktiv zu sein und kann erst später den Auftrag entgegennehmen und ausführen. 
+(Sender)---**Auftrag**--->Auftrag(entgegenehmen)(Empfänger) 
+
+
+b.  Transient und empfangsbasierter synchroner Nachrichtenaustausch – das Empfangen des 
+Auftrages durch den entfernten Prozess wird bestätigt (er muss demzufolge aktiv sein). 
+Die Ausführung kann aber erst später erfolgen. 
+(Sender)---**Anfrage**-->Empfänger
+(Sender)<---**Bestät**---Empfänger
+(Sender)---**Auftrag**-->Empfänger
+
+c.  Transienter und antwortbasierter synchroner Nachrichtenaustausch - die Ausführung des 
+Auftrages wird durch den entfernten Prozess bestätigt.
+
+(Sender)---**Auftrag**-->Empfänger (Ausführung)
+										|
+										V
+						Empfänger(Bestättigung)
+(Sender)<---*Bestät**----
+
+
+d.  Transienter und asynchroner Nachrichtenaustausch – Die Nachricht kann nur dann ge-
+sendet werden, wenn der Empfänger aktiv ist. Eine Bestätigung wird nicht erwartet. 
+
+(Sender)---**Auftrag**-->Empfänger Warteschlange
+
+
+e.  Persistenter und synchroner Nachrichtenaustausch - man sendet die Nachricht und wartet 
+auf Bestätigung, dass sie von der Mailbox akzeptiert wurde. Die Zustellung kann ir-
+gendwann erfolgen, wenn der Empfänger aktiv wird. 
+
+(Sender)----**Auftrag**--> Warteschlange
+								|
+								V
+								Wenn Abgearbeite
+(Sender)<---**Bestätigung**--Empfänger
+
+f.  Persistenter und asynchroner Nachrichtenaustausch – man sendet die Nachricht und 
+hofft, dass sie irgendwann empfangen wird, wenn der Empfänger aktiv wird.
+(Sender)---**Auftrag**--->Auftrag(Ubestätigt)
+								|
+								V
+						(Empfänger) wenn aktiv
+						
+Die Stubprozedur übernimmt als Vertreter die folgenden Aufgaben:
+•  Sie übernimmt die Parameter Par und Result und verpackt sie in eine Nachric
+ser Vorgang wird auch MARSHALLING genannt. 
+•  Sie aktiviert das Kommunikationssystem und sendet mit Hilfe der SEND-An
+die Nachricht zum Server  2 . 
+•  Sie wartet, blockierend mit Hilfe der RECEIVE-Anweisung, auf die Antwort. 
+
+1-Marshalling der Parameter 
+2-Reprästentation der Daten
+3-Fehlertoleranz 
+4-Unbekannte Adresse kann durch Verzeichnissdienst ersetzt werden.
+
+Zentraler Zeitserver. Der Server vergibt Synchronisierungszeitmarken (time stamps) auf 
+Anforderung oder sendet sie in bestimmten Intervallen an alle Netzwerkknoten. Im ersten 
+Fall kann der Server bei mehreren Aufträgen zum Engpass werden. Im zweiten Fall wird 
+das Kommunikationsnetzwerk durch die wiederholten Broadcast-Nachrichten stark belas-
+
+tet. Nachteilig wirkt sich dabei wieder das zeitlich nichtdeterministische Kom-
+munikationsverhalten des Netzwerkes aus. Das Synchronisationssignal bekommt eine un-
+bestimmte Verzögerung, wenn es in Form eines Datenpakets über das Kommunikationsme-
+dium, den Adapter, den Speicher und das System transportiert wird. Bei dynamischen 
+Interaktionen führt das zur Verfälschung der Ordnung. 
+?  Verteilte Zeitserver. Im Vergleich zum zentralen Zeitserver wird eine bessere Verlässlich-
+keit sowie ein besserer Lastausgleich durch mehrere Server erreicht. Das Problem der Syn-
+chronisation über das nichtdeterministische Netzwerk bleibt, wie beim zentralen Zeitserver, 
+bestehen. 
+?  Radiosynchronisation. Die weltweite Zeitabstimmung erfolgt heutzutage auf der Basis von 
+UTC-Zeit (Universal Coordination Time) über Satelliten oder über spezielle Radiosender. 
+Auf der Basis der UTC-Zeit kann eine Synchronisation der Interaktionen durch Nachrich-
+ten mit Zeitmarken oder durch einen zentralisierten oder verteilten Zeit-Server erfolgen. 
+Die Abweichung der Radiosynchronisation kann aber durch die atmosphärischen Schwan-
+kungen mehrere Millisekunden betragen.
