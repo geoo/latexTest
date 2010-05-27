@@ -3,19 +3,16 @@ sind selbst syncroniesiert, Es werden keine Semaphoren etc. benötigt.
 Happend Before- erlaubt Sychrosation mit logischen Uhren.
 
 Beispiele für Synchron, Persitente, Asyschron und Transiente Kommunikation
-
-
-
-a.  Transient und auslieferungsbasierter synchroner Nachrichtenaustausch – nur die Auslie-
-ferung des Auftrages wird an den entfernten Treiber bestätigt. Der Prozess braucht nicht 
-aktiv zu sein und kann erst später den Auftrag entgegennehmen und ausführen. 
-(Sender)---**Auftrag**--->Auftrag(entgegenehmen)(Empfänger) 
+asdfen)(Empfänger) 
 
 
 b.  Transient und empfangsbasierter synchroner Nachrichtenaustausch – das Empfangen des 
 Auftrages durch den entfernten Prozess wird bestätigt (er muss demzufolge aktiv sein). 
 Die Ausführung kann aber erst später erfolgen. 
 (Sender)---**Anfrage**-->Empfänger
+
+
+
 (Sender)<---**Bestät**---Empfänger
 (Sender)---**Auftrag**-->Empfänger
 
